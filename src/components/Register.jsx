@@ -520,7 +520,7 @@ console.log(competitionTypes);
                 console.log(participantData)
                 const jwt = localStorage.getItem('token');
                 const response = await fetch(
-                    'http://localhost:5000/cashRegister',
+                    'https://api.acmdevday.com/cashRegister',
                     {
                         method: 'POST',
                         headers: {

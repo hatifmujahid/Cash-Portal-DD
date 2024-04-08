@@ -14,7 +14,7 @@ const Login = ({setLogin, setJwt}) => {
     }
 
     try {
-      const response = await fetch('http://localhost:5000/cashLogin', {
+      const response = await fetch('https://api.acmdevday.com/cashLogin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -52,7 +52,7 @@ const Login = ({setLogin, setJwt}) => {
     console.log(token)
     if (token) {
       try {
-        const response = await fetch('http://localhost:5000/verifyCashSession', {
+        const response = await fetch('https://api.acmdevday.com/verifyCashSession', {
           method: "GET",
           headers: {
             'Content-Type': 'application/json',
