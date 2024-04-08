@@ -216,6 +216,9 @@ const Register = () => {
         cnic5: false,
         email5: false,
         phone5: false,
+
+        referenceCode: false,
+        universityName: false,
         // file: false,
     })
 
@@ -306,6 +309,7 @@ console.log(competitionTypes);
     const [cnic4, setCnic4] = useState('')
     const [cnic5, setCnic5] = useState('')
 
+    const [universityName, setUniversityName] = useState('')
     const [referenceCode, setReferenceCode] = useState('')
 
     const handleInput = (name, value) => {
@@ -343,6 +347,7 @@ console.log(competitionTypes);
             
             teamName: setTeamName,
             referenceCode: setReferenceCode,
+            universityName: setUniversityName
         };
     
         const setter = setters[name];
@@ -375,6 +380,12 @@ console.log(competitionTypes);
             return
         }
 
+        if (universityName === ''){
+            alert("Please Enter a university name")
+            setError({...error, universityName: true})
+            return
+        }
+
         if (member1 === '' || email1 === '' || phone1 === '' || cnic1 === '') {
             alert('Please fill in the required fields')
             setError({...error, 
@@ -386,7 +397,7 @@ console.log(competitionTypes);
             return
         }
 
-        if (competition.name === "CS2"){
+        if (competition.name === "Counter-Strike 2 (CS2)"){
             if (member2 === '' || email2 === '' || phone2 === '' || cnic2 === '') {
                 alert('Please fill in the required fields')
                 setError({...error, 
@@ -445,6 +456,12 @@ console.log(competitionTypes);
             }
         }
 
+        if (referenceCode === '') {
+            alert('Please enter a reference code')
+            setError({...error, referenceCode: true})
+            return
+        }
+
         // if (files === null) {
         //     alert('Please upload a payment receipt')
         //     setError({...error, file: true})
@@ -488,7 +505,7 @@ console.log(competitionTypes);
             mem4_whatsapp_number: phone5,
             mem4_cnic: cnic5,
             reference_code: referenceCode,
-            
+            universityName: universityName,
         }
 
         try {
@@ -501,19 +518,22 @@ console.log(competitionTypes);
 
                 setLoading(true)
                 console.log(participantData)
+                const jwt = localStorage.getItem('token');
                 const response = await fetch(
-                    'https://devdayserver-5v05haitu-hatifmujahid.vercel.app/addParticipant',
+                    'http://localhost:5000/cashRegister',
                     {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
-                            'Cookie': "_vercel_jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJCSGtTbjhEYVFXOUl5WG93Y3pHMFFkNWYiLCJpYXQiOjE3MTE3MTgzNjQsImF1ZCI6ImRldmRheXNlcnZlci04ZWdwOW9hdG8taGF0aWZtdWphaGlkLnZlcmNlbC5hcHAiLCJ1c2VybmFtZSI6ImhhdGlmbXVqYWhpZCIsInN1YiI6InNzby1wcm90ZWN0aW9uIn0.MNhZOFzNXnHDkpvbHmyKz_HkBH-ymCHlZGiABM6FNj0"
+                            'Authorization': `Bearer ${jwt}`
                         },
                         body: JSON.stringify(participantData),
                     }
                 )
 
-                if (response.ok) {
+                const data = await response.json()
+
+                if (data.success) {
                     console.log('Submitted successfully:', response)
                     setShowDialog(true)
 
@@ -541,10 +561,11 @@ console.log(competitionTypes);
                     setCompetition('')
                     setCompetitionType('')
                     setTeamName('')
-                    setFiles(null)
+                    setUniversityName('')
                 } else {
                     console.log(response)
                     throw new Error('Failed to submit form')
+                    alert('Error is Submitting form, Please try again')
                 }
             // }
         } catch (error) {
@@ -576,6 +597,8 @@ console.log(competitionTypes);
                 cnic5: false,
                 email5: false,
                 phone5: false,
+                referenceCode: false,
+                universityName: false,
                 // file: false,
             })
         }
@@ -589,7 +612,7 @@ console.log(competitionTypes);
                     <h1 className="mainh1 text-gray-400 font-extrabold text-4xl sm:text-5xl md:text-5xl underline lg:text-6xl xl:text-7xl 2xl:text-8xl text-600 sm:mb-8 md:mb-8">
                         Cash Form
                     </h1>
-                    <p className='m-5 text-gray-400 '>Cash Form for Dev day 24 Registration, collect payment before filling out this form, In Case of any ambiguity in payment and forms, serious action will be taken.</p>
+                    <p className='m-5 p-6 rounded-lg bg-gray-800 text-gray-400 '>Cash Form for Dev day 24 Registration, collect payment before filling out this form, In Case of any ambiguity in payment and forms, serious action will be taken.</p>
                     <div className="part2 ml-[-200px]  mt-16 hidden sm:flex md:hidden lg:block xl:block 2xl:block ml-auto">
                         {/* <img src={Arrow1} alt="" className="" /> */}
                     </div>
@@ -680,7 +703,6 @@ console.log(competitionTypes);
                             }
                             }    
                         >
-                            
                             <SelectTrigger
                                 aria-label="Social Media Activity"
                                 className="bg-gray-800 text-white focus:ring-0"
@@ -730,7 +752,7 @@ console.log(competitionTypes);
 
             <div className="flex bg-[#031e2c]  flex-col items-center gap-20  mb-12 mt-[-55px]">
                 <div className="flex flex-center justify-start w-[240px] sm:w-[400px] md:w-[600px] lg:w-[75%]">
-                    <h1 className="text-5xl font-bold text-white w-full ">
+                    <h1 className="mt-52 text-center text-5xl font-bold text-white w-full ">
                         Team Information
                     </h1>
                 </div>
@@ -778,7 +800,7 @@ console.log(competitionTypes);
                     label="University Name"
                     name="universityName"
                     type="text"
-                    value={teamName}
+                    value={universityName}
                     isRequired={true}
                     error={error.universityName}
                     handleChange={handleInput}
@@ -831,7 +853,7 @@ console.log(competitionTypes);
                 </div>
 
                 {
-                    ( competition.name === "Scavenger hunt" || competition.name === "CS2" )&&
+                    ( competition.name === "Scavenger hunt" || competition.name === "Counter-Strike 2 (CS2)" )&&
                         <div className="flex flex-col gap-5 w-[270px] sm:w-[450px] md:w-[600px] lg:w-[75%] ">
                             <h1 className="text-3xl font-bold text-[#23B6DF]">
                                 Member 2
@@ -878,7 +900,7 @@ console.log(competitionTypes);
                 }
 
                 {
-                    competition.name === "CS2" && 
+                    competition.name === "Counter-Strike 2 (CS2)" && 
                     
                     <>
                     <div className="flex flex-col gap-5 w-[270px] sm:w-[450px] md:w-[600px] lg:w-[75%] ">
@@ -1016,7 +1038,7 @@ console.log(competitionTypes);
 
                 }
 
-                {competition.maxMembers > 1 && competition.name !== "CS2" && (
+                {competition.maxMembers > 1 && competition.name !== "Counter-Strike 2 (CS2)" && (
                 <div className="mx-auto relative z-10 bg-[#031e2c] w-[100%]">
                     <h1 className="text-center text-2xl font-bold mb-4 text-[#23B6DF]">
                         Select Number of Team Members
@@ -1138,7 +1160,7 @@ console.log(competitionTypes);
                 <div className="flex flex-col md:flex-col gap-5 w-[270px] sm:w-[350px] md:w-[400px] lg:w-[65%] mx-auto">
                     <h4  className='text-gray-400 '>Enter a reference code</h4>
                     <InputBox
-                        label="Reference Code (if any)"
+                        label="Reference Code"
                         name="referenceCode"
                         type="text"
                         value={referenceCode}

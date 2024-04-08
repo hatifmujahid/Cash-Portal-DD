@@ -1,7 +1,6 @@
-import react, {useState} from "react"
+import react, {useEffect, useState} from "react"
 import "./index.css"
 import Register from "./components/Register"
-
 
 const Login = ({setLogin, setJwt}) => {
     const [userID, setUserID] = useState('');
@@ -15,7 +14,7 @@ const Login = ({setLogin, setJwt}) => {
     }
 
     try {
-      const response = await fetch('https://api.acmdevday.com/cashLogin', {
+      const response = await fetch('http://localhost:5000/cashLogin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -27,17 +26,17 @@ const Login = ({setLogin, setJwt}) => {
       });
 
       console.log(response)
-      if (response.success) {
-        response.json().then((data) => {
-          setJwt(data.jwt);
-          setLogin(true);
-        });
-        console.log(response)
+      const res = await response.json()
+      console.log(res)
+
+      if (res.success) {
+        setJwt(res.token)
+        setLogin(true)
+        localStorage.setItem('token', res.token)
       } else {
         alert('Invalid UserID or Password');
         setUserID('');
         setPassword('');
-        console.log(response)
       }
       }
     catch (error) {
@@ -46,6 +45,46 @@ const Login = ({setLogin, setJwt}) => {
       alert("error")
     }
   }
+
+  useEffect( () => {
+    const verifySession = async () => {
+    const token = localStorage.getItem('token');
+    console.log(token)
+    if (token) {
+      try {
+        const response = await fetch('http://localhost:5000/verifyCashSession', {
+          method: "GET",
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`  
+          }
+        })
+        console.log(response)
+        const res = await response.json()
+
+        if (res.success) {
+          setLogin(true)
+          setJwt(token)
+        } else {
+          localStorage.removeItem('token')
+        }
+      }
+      catch {
+        localStorage.removeItem('token')
+        setLogin(false)
+        setJwt('')
+        
+      }
+    }
+    else {
+      localStorage.removeItem('token')
+      setLogin(false)
+      setJwt('')
+    }
+  }
+
+  verifySession();
+  }, [])
 
   return (
      <div className=" bg-[#031e2c] min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
