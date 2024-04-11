@@ -26,7 +26,8 @@ import {
     DialogTrigger,
     DialogFooter,
 } from './ui/dialog'
-
+import Nav from "./Nav"
+import {useNavigate} from "react-router-dom"
 
 // function UploadCloudIcon(props) {
 //     return (
@@ -154,7 +155,8 @@ const InputBox = ({ label, name, type, value, handleChange, isRequired, error}) 
     )
 }
 
-const Register = () => {
+const Register = ({isLoggedIn}) => {
+
     const [CompData, setCompData] = useState([]);
     const [loading, setLoading] = useState(false)
     const [fetchLoading, setFetchLoading] = useState(false);
@@ -164,28 +166,27 @@ const Register = () => {
     const [teamNumber, setTeamNumber] = useState(0);
     const [loadText, setLoadText] = useState("Submit")
 
+    const navigate = useNavigate();
     useEffect(() => {
+        if (!isLoggedIn){
+            navigate('/login')
+        }
         const fetchData = async () => {
             try {
                 setFetchLoading(true);
-                console.log("starting")
                 const response = await fetch('https://api.acmdevday.com/getCompetitions');
                 if (!response.ok) {
                     throw new Error('Failed to fetch competitions');
                 }
                 const data = await response.json();
-                console.log("done");
-                console.log(data);
                 setCompData(data);
                 setFetchLoading(false);
             } catch (error) {
-                console.error('Error fetching competitions:', error);
                 setFetchLoading(false)
             }
         };
 
         fetchData();
-        console.log(CompData);
     }, []);
 
     const [error, setError] = useState({
@@ -271,9 +272,6 @@ const Register = () => {
         setCompetitionTypes(newCompetitionTypes);
     }, [CompData]);
     
-
-console.log(competitionTypes);
-
     
     const handleCompetitionChange = (e) => {
         setCompetition(e.target.value)
@@ -313,7 +311,6 @@ console.log(competitionTypes);
     const [referenceCode, setReferenceCode] = useState('')
 
     const handleInput = (name, value) => {
-        console.log(name, value);
 
         if (name === 'competitionType') {
             setCompetitionType(value);
@@ -517,7 +514,6 @@ console.log(competitionTypes);
             //     participantData.image = base64Image
 
                 setLoading(true)
-                console.log(participantData)
                 const jwt = localStorage.getItem('token');
                 const response = await fetch(
                     'https://api.acmdevday.com/cashRegister',
@@ -534,7 +530,6 @@ console.log(competitionTypes);
                 const data = await response.json()
 
                 if (data.success) {
-                    console.log('Submitted successfully:', response)
                     setShowDialog(true)
 
                     setMember1('')
@@ -563,7 +558,6 @@ console.log(competitionTypes);
                     setTeamName('')
                     setUniversityName('')
                 } else {
-                    console.log(response)
                     throw new Error('Failed to submit form')
                     alert('Error is Submitting form, Please try again')
                 }
@@ -605,11 +599,11 @@ console.log(competitionTypes);
     }
 
     return (
-        <div className="bg-[#031e2c]">
-            <div className="bg-[#031e2c] flex justify-center items-center flex-col">
+        <div className="bg-[#031e2c] border">
+            <div className="bg-[#031e2c] flex justify-center items-center flex-col mt-36">
                 <div className=" part1 flex justify-space-evenly items-center xl:flex lg:flex sm:inline-block md:inline-block sm:text-center md:text-center mt-16">
                 <div className="mt-12">
-                    <h1 className="mainh1 text-gray-400 font-extrabold text-4xl sm:text-5xl md:text-5xl underline lg:text-6xl xl:text-7xl 2xl:text-8xl text-600 sm:mb-8 md:mb-8">
+                    <h1 className="mainh1 text-gray-400 font-extrabold text-4xl sm:text-5xl md:text-5xl underline lg:text-6xl xl:text-7xl 2xl:text-8xl text-600 sm:mb-8 md:mb-8 text-center">
                         Cash Form
                     </h1>
                     <p className='m-5 p-6 rounded-lg bg-gray-800 text-gray-400 '>Cash Form for Dev day 24 Registration, collect payment before filling out this form, In Case of any ambiguity in payment and forms, serious action will be taken.</p>
@@ -1049,7 +1043,6 @@ console.log(competitionTypes);
                             <Select 
                                 className="bg-white border-none text-white"
                                 onValueChange={(value) => {
-                                    console.log(parseInt(value))
                                     setTeamNumber(parseInt(value))
                                     if (competition.maxMembers === 1) {
                                         setTeamNumber(1);
