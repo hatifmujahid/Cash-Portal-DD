@@ -19,7 +19,7 @@ const CheckParticipant = () => {
 
     const fetchParticipant = async () => {
         setLoading(true);
-        const response = await fetch(`https://api.acmdevday.com/verifyParticipant`, {
+        const response = await fetch(`http://localhost:5000/verifyParticipant`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -37,6 +37,7 @@ const CheckParticipant = () => {
             setFound(true)
         }
         else {
+            alert("Not found");
             setFound(false)
             setData({})
         }
