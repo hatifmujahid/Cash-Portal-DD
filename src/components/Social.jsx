@@ -19,7 +19,7 @@ const CheckParticipant = () => {
 
     const fetchParticipant = async () => {
         setLoading(true);
-        const response = await fetch(`http://localhost:5000/verifyParticipant`, {
+        const response = await fetch(`https://api.acmdevday.com/verifyParticipant`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
