@@ -19,7 +19,7 @@ const CheckParticipant = () => {
 
     const fetchParticipant = async () => {
         setLoading(true);
-        const response = await fetch(`http://localhost:5000/verifyParticipant`, {
+        const response = await fetch(`https://api.acmdevday.com/verifyParticipant`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -156,7 +156,7 @@ const Social = ({isLoggedIn}) => {
 
         try {
 
-            const data = await fetch("http://localhost:5000/addSocialEventParticipant", {
+            const data = await fetch("https://api.acmdevday.com/addSocialEventParticipant", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
