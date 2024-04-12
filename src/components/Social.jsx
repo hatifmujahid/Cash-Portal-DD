@@ -19,7 +19,7 @@ const CheckParticipant = () => {
 
     const fetchParticipant = async () => {
         setLoading(true);
-        const response = await fetch(`https://api.acmdevday.com/verifyParticipant`, {
+        const response = await fetch(`http://localhost:5000/verifyParticipant`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -150,12 +150,13 @@ const Social = ({isLoggedIn}) => {
         setLoading(true);
         if (cnic === "" || name === "" || email === "" || whatsapp === "" || universityName === "") {
             alert("Please fill all the fields")
+            setLoading(false)
             return
         }
 
         try {
 
-            const data = await fetch("https://api.acmdevday.com/addSocialEventParticipant", {
+            const data = await fetch("http://localhost:5000/addSocialEventParticipant", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
