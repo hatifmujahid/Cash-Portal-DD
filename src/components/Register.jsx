@@ -453,11 +453,11 @@ const Register = ({isLoggedIn}) => {
             }
         }
 
-        // if (referenceCode === '') {
-        //     alert('Please enter a reference code')
-        //     setError({...error, referenceCode: true})
-        //     return
-        // }
+        if (referenceCode === '') {
+            alert('Please enter a reference code')
+            setError({...error, referenceCode: true})
+            return
+        }
 
         // if (files === null) {
         //     alert('Please upload a payment receipt')
