@@ -599,8 +599,8 @@ const Register = ({isLoggedIn}) => {
     }
 
     return (
-        <div className="bg-[#031e2c] border">
-            <div className="bg-[#031e2c] flex justify-center items-center flex-col mt-36">
+        <div className="bg-[#031e2c]">
+            <div className="bg-[#031e2c] flex justify-center items-center flex-col pt-36">
                 <div className=" part1 flex justify-space-evenly items-center xl:flex lg:flex sm:inline-block md:inline-block sm:text-center md:text-center mt-16">
                 <div className="mt-12">
                     <h1 className="mainh1 text-gray-400 font-extrabold text-4xl sm:text-5xl md:text-5xl underline lg:text-6xl xl:text-7xl 2xl:text-8xl text-600 sm:mb-8 md:mb-8 text-center">

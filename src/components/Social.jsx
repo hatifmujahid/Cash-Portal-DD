@@ -72,7 +72,7 @@ const CheckParticipant = () => {
 const Participant = ({data}) => {
 
     return (
-        <div className="flex flex-col gap-4 items-center justify-center mx-10 rounded-3xl p-5 m-4 bg-gray-800">
+        <div className="flex flex-col gap-4 items-center justify-center mx-6 rounded-3xl p-5 m-4 bg-gray-800">
             <div className="text-white text-2xl font-bold">
                 Participant Details
             </div>
@@ -80,31 +80,31 @@ const Participant = ({data}) => {
 
             <div className="text-gray-300 text-md font-bold">
                 Name: 
-                <div className="text-xl inline ml-5 text-white">{data.name}</div>
+                <div className="text-lg inline ml-5 text-white">{data.name}</div>
             </div>
             <div className="text-white text-md font-bold">
                 CNIC:
-                <div className="text-xl inline ml-5 text-white">{data.cnic}</div>
+                <div className="text-lg inline ml-5 text-white">{data.cnic}</div>
             </div>
             <div className="text-white text-md font-bold">
                 Email: 
-                <div className="text-xl inline ml-5 text-white">{data.email}</div>
+                <div className="text-lg inline ml-5 text-white">{data.email}</div>
             </div>
             <div className="text-white text-md font-bold">
                 WhatsApp Number:
-                <div className="text-xl inline ml-5 text-white">{data.whatsapp_number}</div>
+                <div className="text-lg inline ml-5 text-white">{data.whatsapp_number}</div>
             </div>
             <div className="text-white text-md font-bold">
                 Team Name: 
-                <div className="text-xl inline ml-5 text-white">{data.Team_Name}</div>
+                <div className="text-lg inline ml-5 text-white">{data.Team_Name}</div>
             </div>
             <div className="text-white text-md font-bold">
                 Competition: 
-                <div className="text-xl inline ml-5 text-white">{data.competition}</div>
+                <div className="text-lg inline ml-5 text-white">{data.competition}</div>
             </div>
             <div className="text-white text-md font-bold">
                 Consumer Number:
-                <div className="text-xl inline ml-5 text-white">{data.consumerNumber}</div>
+                <div className="text-lg inline ml-5 text-white">{data.consumerNumber}</div>
             </div>
             </div>
         </div>

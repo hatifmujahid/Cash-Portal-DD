@@ -28,9 +28,7 @@ const Login = ({setLogin, setJwt}) => {
         }),
       });
 
-      console.log(response)
       const res = await response.json()
-      console.log(res)
 
       if (res.success) {
         setJwt(res.token)
@@ -45,7 +43,6 @@ const Login = ({setLogin, setJwt}) => {
       }
     catch (error) {
       console.log(error)
-      console.log("Hello")
       alert("error")
     }
     setLoading(false);
@@ -54,7 +51,6 @@ const Login = ({setLogin, setJwt}) => {
   useEffect( () => {
     const verifySession = async () => {
     const token = localStorage.getItem('token');
-    console.log(token)
     if (token) {
       try {
         const response = await fetch('https://api.acmdevday.com/verifyCashSession', {
@@ -64,7 +60,6 @@ const Login = ({setLogin, setJwt}) => {
             'Authorization': `Bearer ${token}`  
           }
         })
-        console.log(response)
         const res = await response.json()
 
         if (res.success) {

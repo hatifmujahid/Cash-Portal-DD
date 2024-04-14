@@ -25,6 +25,10 @@ const Nav = ({ isLoggedIn, setIsLoggedIn }) => {
     navigate("/register");
   };
 
+  const navigateToSocialList = () => {
+    navigate("/social-list");
+  };
+
   return (
     <div className="w-full h-16 absolute top-0 md:flex md:justify-between p-3">
       <div className="flex text-white mx-4 md:mx-12 justify-between items-center">
@@ -82,7 +86,7 @@ const Nav = ({ isLoggedIn, setIsLoggedIn }) => {
                 className="text-white p-2 rounded-xl bg-[#297987] hover:bg-[#13a3bd] font-bold mb-2 md:mb-0 md:mr-4"
                 onClick={navigateToRegister}
               >
-                Register
+                Comp Register
               </button>
               <button
                 className="text-white p-2 rounded-xl bg-[#297987] hover:bg-[#13a3bd] font-bold mb-2 md:mb-0 md:mr-4"
@@ -90,6 +94,14 @@ const Nav = ({ isLoggedIn, setIsLoggedIn }) => {
               >
                 Social Register
               </button>
+              
+              <button
+                className="text-white p-2 rounded-xl bg-[#297987] hover:bg-[#13a3bd] font-bold mb-2 md:mb-0 md:mr-4"
+                onClick={navigateToSocialList}
+              >
+                Social List
+              </button>
+
               <button
                 className="text-white p-2 rounded-xl bg-[#5c0f19] hover:bg-[#b01529]  font-bold"
                 onClick={logout}
