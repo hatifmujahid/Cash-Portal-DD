@@ -121,6 +121,7 @@ const Social = ({isLoggedIn}) => {
     const [whatsapp, setWhatsapp] = useState("");
     const [universityName, setUniversityName] = useState("");
     const [ticketID, setTicketID] = useState("");
+    const [filled_by, setFilled_by] = useState("");
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -148,11 +149,14 @@ const Social = ({isLoggedIn}) => {
         if(e.target.name=="ticketID"){
             setTicketID(e.target.value);
         }
+        if(e.target.name=="filled_by"){
+            setFilled_by(e.target.value);
+        }
     }
 
     const handleSubmit = async () => {
         setLoading(true);
-        if (cnic === "" || name === "" || email === "" || whatsapp === "" || universityName === "" || ticketID === "") {
+        if (cnic === "" || name === "" || email === "" || whatsapp === "" || universityName === "" || ticketID === "" || filled_by === "") {
             alert("Please fill all the fields")
             setLoading(false)
             return
@@ -172,7 +176,8 @@ const Social = ({isLoggedIn}) => {
                     email: email,
                     whatsapp_number: whatsapp,
                     college: universityName,
-                    ticketID: ticketID
+                    ticketID: ticketID,
+                    filled_by: filled_by
                 })
             })
     
@@ -186,6 +191,7 @@ const Social = ({isLoggedIn}) => {
                 setWhatsapp("")
                 setUniversityName("")
                 setTicketID("")
+                setFilled_by("")
             }
             else {
                 alert(res.message)
@@ -218,6 +224,7 @@ const Social = ({isLoggedIn}) => {
                                 <input type="text" placeholder="WhatsApp Number" className="border p-2 rounded-lg bg-gray-800 text-white" name="whatsapp" value={whatsapp} onChange={handleChange}/>
                                 <input type="text" placeholder="University" className="border p-2 rounded-lg bg-gray-800 text-white" name="universityName" value={universityName} onChange={handleChange} />
                                 <input type="text" placeholder="Ticket ID" className="border p-2 rounded-lg bg-gray-800 text-white" name="ticketID" value={ticketID} onChange={handleChange} />
+                                <input type="text" placeholder="Filled By" className="border p-2 rounded-lg bg-gray-800 text-white" name="filled_by" value={filled_by} onChange={handleChange} />
                                 <button className="bg-[#297987] text-white p-2 rounded-lg hover:bg-[#13a3bd] my-5 border mb-24" onClick={handleSubmit}>
                                     {loading ? "Submitting...." : "Submit"}
                                 </button>
