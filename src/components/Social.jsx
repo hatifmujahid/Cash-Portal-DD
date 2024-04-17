@@ -106,6 +106,10 @@ const Participant = ({data}) => {
                 Consumer Number:
                 <div className="text-lg inline ml-5 text-white">{data.consumerNumber}</div>
             </div>
+            <div className="text-white text-md font-bold">
+                Email sent status
+                <div className="text-lg inline ml-5 text-white">{data.Paid}</div>
+            </div>    
             </div>
         </div>
     )
