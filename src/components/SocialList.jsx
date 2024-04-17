@@ -55,7 +55,7 @@ const SocialList = ({ isLoggedIn }) => {
                                 <td className="border border-gray-500 px-4 py-2">{item.college}</td>
                                 <td className="border border-gray-500 px-4 py-2">{item.isParticipant ? "Yes" : "No"}</td>
                                 <td className="border border-gray-500 px-4 py-2">{item.fees_amount}</td>
-                                <td className="border border-gray-500 px-4 py-2">{item.paid}</td>
+                                <td className="border border-gray-500 px-4 py-2">{item.Paid}</td>
                             </tr>
                         ))}
                     </tbody>
