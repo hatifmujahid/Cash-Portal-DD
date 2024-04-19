@@ -35,6 +35,7 @@ const SocialList = ({ isLoggedIn }) => {
                 <table className="table-auto w-full mx-auto text-white">
                     <thead>
                         <tr className="bg-gray-800">
+                            <th className="px-4 py-2">Sr. no</th>
                             <th className="px-4 py-2">CNIC</th>
                             <th className="px-4 py-2">Name</th>
                             <th className="px-4 py-2">Email</th>
@@ -42,12 +43,14 @@ const SocialList = ({ isLoggedIn }) => {
                             <th className="px-4 py-2">College</th>
                             <th className="px-4 py-2">Is Participant</th>
                             <th className="px-4 py-2">Fees Amount</th>
+                            <th className="px-4 py-2">Filled By</th>
                             
                         </tr>
                     </thead>
                     <tbody>
-                        {data.map((item) => (
+                        {data.map((item, index) => (
                             <tr key={item._id}>
+                                <td className="border border-gray-500 px-4 py-2">{index + 1}</td>
                                 <td className="border border-gray-500 px-4 py-2">{item.cnic}</td>
                                 <td className="border border-gray-500 px-4 py-2">{item.name}</td>
                                 <td className="border border-gray-500 px-4 py-2">{item.email}</td>
@@ -55,7 +58,7 @@ const SocialList = ({ isLoggedIn }) => {
                                 <td className="border border-gray-500 px-4 py-2">{item.college}</td>
                                 <td className="border border-gray-500 px-4 py-2">{item.isParticipant ? "Yes" : "No"}</td>
                                 <td className="border border-gray-500 px-4 py-2">{item.fees_amount}</td>
-                                
+                                <td className="border border-gray-500 px-4 py-2">{item.filled_by}</td>
                             </tr>
                         ))}
                     </tbody>
